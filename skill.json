@@ -1,0 +1,27 @@
+{
+  "$schema_version": 1,
+  "name": "srs-notify-mail",
+  "version": "1.0.0",
+  "node_id": "AG-NOTIFY",
+  "kind": "service",
+  "summary": "Node dịch vụ AG-NOTIFY (SOP, gọi bất kỳ lúc nào ngoài luồng B1–B30): soạn email phát hành tài liệu/thông tin dự án từ sổ tài liệu + changelog; kiểm phân loại mật (giữ tài liệu mật nếu gửi ra ngoài tổ chức); dừng ở Human Gate chờ xác nhận, không tự gửi.",
+  "repository": "https://github.com/HaNguyen1409/srs-notify-mail",
+  "license": "MIT",
+  "interface": {
+    "contract": "SKILL.md — đầu vào/đầu ra là tài liệu Markdown/JSON mô tả trong skill; không gọi trực tiếp skill khác",
+    "output_artifact": null,
+    "sop_steps": [
+      {
+        "step": "—",
+        "title": "Thông báo & phát tài liệu qua email",
+        "type": "Agent",
+        "receives_from": "sổ tài liệu + changelog (workbook)",
+        "sends_to": "người nhận qua email"
+      }
+    ]
+  },
+  "upstream": {},
+  "downstream": [],
+  "orchestrates": {},
+  "runtime": null
+}

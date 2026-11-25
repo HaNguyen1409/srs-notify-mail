@@ -1,0 +1,29 @@
+name: Release
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Kiểm tag khớp VERSION
+        run: python tools/check_skill.py
+      - name: Chạy kiểm thử engine (nếu có)
+        run: |
+          if [ -d engine/tests ]; then python -m unittest discover -s engine/tests; fi
+      - name: Đóng gói zip
+        run: |
+          python tools/package.py
+          python tools/check_skill.py --notes > RELEASE_NOTES.md
+      - uses: softprops/action-gh-release@v2
+        with:
+          body_path: RELEASE_NOTES.md
+          files: dist/*.zip
