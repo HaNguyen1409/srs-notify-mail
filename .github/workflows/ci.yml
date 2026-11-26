@@ -12,6 +12,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Cài thư viện (nếu có requirements.txt)
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Kiểm tên, phiên bản, CHANGELOG
         run: python tools/check_skill.py
       - name: Chạy kiểm thử engine (nếu có)
